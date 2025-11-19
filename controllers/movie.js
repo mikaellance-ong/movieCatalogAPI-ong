@@ -38,19 +38,18 @@ module.exports.getAllMovies = (req, res) => {
 };
 
 module.exports.getMovieById = (req, res) => {
-	return Movie.findOne(req.params.id)
-	.then(movie => {
-		if(movie)
-		{
-			return res.status(200).send(movie);
-		}
-		else
-		{
-			return res.status(404).send({message: "Movie not found"});
-		}
-	})
-	.catch(err => errorHandler(err, req, res));
-}
+    const movieId = req.params.movieId;
+
+    return Movie.findById(movieId)
+        .then(movie => {
+            if (movie) {
+                return res.status(200).send(movie);
+            } else {
+                return res.status(404).send({ message: "Movie not found" });
+            }
+        })
+        .catch(err => errorHandler(err, req, res));
+};
 
 module.exports.updateMovie = (req, res) => {
 
